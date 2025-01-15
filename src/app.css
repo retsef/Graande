@@ -1,0 +1,171 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+
+:root {
+  --color: #ffea00;
+  --shadow: #8f8724;
+  --glare: hsl(0 0% 100% / 0.75);
+  --font-size: 5rem;
+  --transition: 0.2s;
+}
+
+* {
+  @apply box-border;
+}
+
+body {
+  @apply grid place-items-center min-h-screen;
+  font-family: "Google Sans", sans-serif, system-ui;
+  background: #191717;
+}
+
+.graande {
+  @apply pt-[var(--padding)] pr-[var(--padding)] pb-[var(--padding)] pl-[var(--padding)] rounded-[var(--size-4)] no-underline text-transparent relative transition-[background] duration-[0.2s];
+  --padding: 0.5rem;
+}
+
+.graande span {
+  @apply inline-block text-[calc(var(--font-size)_*_1.5)] font-[number:var(--font-weight-9)] transition-all duration-[0.2s] no-underline last-of-type:absolute last-of-type:inset-[var(--padding)] last-of-type:text-transparent last-of-type:z-[2] last-of-type:transition-transform last-of-type:duration-[0.2s,background-position] last-of-type:delay-[0s];
+
+  text-shadow: calc(var(--hover) * (var(--font-size) * -0))
+  calc(var(--hover) * (var(--font-size) * 0)) var(--shadow),
+  calc(var(--hover) * (var(--font-size) * -0.02))
+  calc(var(--hover) * (var(--font-size) * 0.02)) var(--shadow),
+  calc(var(--hover) * (var(--font-size) * -0.04))
+  calc(var(--hover) * (var(--font-size) * 0.04)) var(--shadow),
+  calc(var(--hover) * (var(--font-size) * -0.06))
+  calc(var(--hover) * (var(--font-size) * 0.06)) var(--shadow),
+  calc(var(--hover) * (var(--font-size) * -0.08))
+  calc(var(--hover) * (var(--font-size) * 0.08)) var(--shadow),
+  calc(var(--hover) * (var(--font-size) * -0.1))
+  calc(var(--hover) * (var(--font-size) * 0.1)) var(--shadow);
+
+  /*     calc(var(--hover) * -2px) calc(var(--hover) * 2px) var(--shadow),
+      calc(var(--hover) * -3px) calc(var(--hover) * 3px) var(--shadow),
+      calc(var(--hover) * -4px) calc(var(--hover) * 4px) var(--shadow), */
+
+  /*     calc(var(--hover) * -5px) calc(var(--hover) * 5px) var(--shadow); */
+  transform: translate(
+      calc(var(--hover) * (var(--font-size) * 0.1)),
+      calc(var(--hover) * (var(--font-size) * -0.1))
+  );
+}
+
+span:last-of-type {
+  background: linear-gradient(
+      108deg,
+      transparent 0 55%,
+      var(--glare) 55% 60%,
+      transparent 60% 70%,
+      var(--glare) 70% 85%,
+      transparent 85%
+  )
+  calc(var(--pos) * -200%) 0% / 200% 100%,
+  var(--color);
+  -webkit-background-clip: text;
+  text-shadow: none;
+  transform: translate(
+      calc(var(--hover) * (var(--font-size) * 0.1)),
+      calc(var(--hover) * (var(--font-size) * -0.1))
+  );
+}
+
+a:hover span:last-of-type {
+  transition: transform 0.2s,
+  background-position calc(var(--hover) * 1.5s) calc(var(--hover) * 0.25s);
+}
+
+.graande {
+  --hover: 0.4;
+  --pos: 0;
+}
+
+.graande:hover {
+  --hover: 1;
+  --pos: 1;
+}
+
+.graande:active {
+  --hover: 0;
+}
+
+.graande:active span:last-of-type {
+  --hover: 0;
+  --pos: 1;
+}
+
+.graande svg {
+  @apply absolute z-[3] w-[calc(var(--font-size)_*_0.5)] aspect-[1] top-[calc(var(--y,50)_*_1%)] left-[calc(var(--x,0)_*_1%)] -translate-x-2/4 -translate-y-2/4 scale-0;
+}
+
+.graande svg path {
+  @apply fill-[var(--glare)];
+}
+
+/* Animation for sparkles */
+.graande:hover svg {
+  @apply animate-[sparkle_0.75s_calc((var(--delay-step)_*_var(--d))_*_1s)_both];
+  -webkit-animation: sparkle 0.75s calc((var(--delay-step) * var(--d)) * 1s)
+  both;
+}
+
+.graande svg {
+  --delay-step: 0.15;
+}
+
+.graande svg:nth-of-type(1) {
+  --x: 0;
+  --y: 20;
+  --s: 1.1;
+  --d: 1;
+}
+
+.graande svg:nth-of-type(2) {
+  --x: 15;
+  --y: 80;
+  --s: 1.25;
+  --d: 2;
+}
+
+.graande svg:nth-of-type(3) {
+  --x: 45;
+  --y: 40;
+  --s: 1.1;
+  --d: 3;
+}
+
+.graande svg:nth-of-type(4) {
+  --x: 75;
+  --y: 60;
+  --s: 0.9;
+  --d: 2;
+}
+
+.graande svg:nth-of-type(5) {
+  --x: 100;
+  --y: 30;
+  --s: 0.8;
+  --d: 4;
+}
+
+.counter {
+  position: absolute;
+  color: white;
+  font-size: 3rem;
+  bottom: 0.8rem;
+  right: 1rem;
+}
+
+@-webkit-keyframes sparkle {
+  50% {
+    transform: translate(-50%, -50%) scale(var(--s, 1));
+  }
+}
+
+@keyframes sparkle {
+  50% {
+    transform: translate(-50%, -50%) scale(var(--s, 1));
+  }
+}
